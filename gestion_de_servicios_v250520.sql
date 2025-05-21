@@ -1,4 +1,5 @@
--- Drop the database if it exists to start fresh.  Useful for development.
+-- Eliminacion DROP de la BD database si existe.
+-- Para tener un inicio fresco/ acero.
 DROP DATABASE IF EXISTS gestion_de_servicios;
 
 -- Creacion de una base de datos.
@@ -15,7 +16,7 @@ CREATE DATABASE gestion_de_servicios;
 -- Todos los suguientes comandos se aplicaran a esta base de datos.
 USE gestion_de_servicios;
 
--- /// Creacion de Tablas Principales. \\\ --
+-- /// Creacion de Tablas Principales/PRIMARIAS. \\\ --
 
 -- Creacion de la tabla de Contactos. 
 -- Esta tabla incluye a todas las personas.
@@ -53,6 +54,21 @@ CREATE TABLE SujetosDeServicios (
     CreadoAl TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ContactoID) REFERENCES Contactos(ContactoID)
 );
+
+-- Creacion de la tabla de Productos 
+-- Partes o bienes fisicos que complementan. 
+-- La Prestacion de Servicios.
+CREATE TABLE Productos (
+    ProductoID INT AUTO_INCREMENT PRIMARY KEY,
+    ParteNombre VARCHAR(255) NOT NULL,
+    Descripcion TEXT,
+    Precio DECIMAL(10, 2) NOT NULL,
+    StockCantidad INT,
+    CreadoAl TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- /// Creacion de Tablas de PRODUCCION/TRABAJO. \\\ --
 
 -- Creacion de la tabla de Prestacion de Servicios.
 -- Esta tabla da inicio a la contratacion de un Servicio.
@@ -121,18 +137,6 @@ CREATE TABLE Facturacion (
     -- CONSTRAINT CHK_PrestadorContactoId CHECK (PrestadorID = (SELECT ContactoID FROM PrestacionServicios WHERE PrestacionServicioID = Facturacion.PrestacionServicioID))
     -- No me dejo usar esta restriccion porque no se puede hacer subconsulta en la restriccion.
     -- Tengo que usar un Trigger para validar esto.
-);
-
--- Creacion de la table de Productos 
--- Partes o bienes fisicos que complementan. 
--- La Prestacion de Servicios.
-CREATE TABLE Productos (
-    ProductoID INT AUTO_INCREMENT PRIMARY KEY,
-    ParteNombre VARCHAR(255) NOT NULL,
-    Descripcion TEXT,
-    Precio DECIMAL(10, 2) NOT NULL,
-    StockCantidad INT,
-    CreadoAl TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
