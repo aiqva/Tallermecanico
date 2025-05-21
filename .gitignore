@@ -1,0 +1,15 @@
+# Database files (Important:  Exclude actual database files)
+*.sqlite
+*.mdf
+*.ldf
+dump.sql
+/database_dumps/
+
+# Application-specific files/directories (adjust as needed)
+/vendor/
+/node_modules/
+/tmp/
+.env
+config/database.php  # If it contains sensitive credentials
+
+# IDE-specific  files
